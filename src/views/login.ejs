@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <title>Login</title>
+</head>
+<body>
+    <section>
+        <main class="login-page">
+            <h1>Order at Table App</h1>
+            <form class="login-form" action="login" method="post">
+                <input 
+                    type="text" 
+                    name="tableNumber" 
+                    id="table-number"
+                    placeholder="Table Number"
+                >
+                <input 
+                    type="submit" 
+                    name="loginType" 
+                    value="customer"
+                >
+                <hr>
+                <input 
+                    type="text" 
+                    name="staffName" 
+                    id="staff-name"
+                    placeholder="Staff Name"
+                >
+                <input 
+                    type="password" 
+                    name="staffPassword" 
+                    id="staff-password"
+                    placeholder="Staff Password"
+                >
+                <input 
+                    type="submit" 
+                    name="loginType" 
+                    value="staff"
+                >
+            </form>
+        </main>
+    </section>
+</body>
+</html>

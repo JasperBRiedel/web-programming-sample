@@ -1,0 +1,13 @@
+<span class="icon"><%= item.icon %></span>
+<h2><%= item.name %></h2>
+<span>$<%= item.price %></span>
+<meter 
+    min="0" 
+    max="10" 
+    low="4"
+    high="8"
+    optimum="9"
+    value="<%= item.rating * 10 %>"
+>
+</meter>
+<span><%= item.description %></span>

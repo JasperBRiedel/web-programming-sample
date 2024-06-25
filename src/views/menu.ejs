@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <script type="module" src="/scripts/menu.mjs" defer></script>
+    <title>Menu</title>
+</head>
+<body>
+    <section>
+        <main class="split-view">
+            <section class="split-view-side">
+                <section class="top-bar">
+                    <%- include("partials/logout.ejs") %>
+                    <span>|</span>
+                    <input 
+                        class="grow"
+                        type="text" 
+                        name="search" 
+                        id="menu-item-search" 
+                        placeholder="search"
+                    >
+                    <select id="menu-item-sort">
+                        <option value="highest rating">Highest Rating</option>
+                        <option value="lowest rating">Lowest Rating</option>
+                        <option value="highest price">Highest Price</option>
+                        <option value="lowest price">Lowest Price</option>
+                    </select>
+                </section>
+                <section class="card-list" id="menu-item-list">
+                    Loading...
+                </section>
+                <section class="bottom-bar">
+                    Order
+                </section>
+            </section>
+            <section class="split-view-side">
+                <section class="grow product-details" id="product-details">
+                    Product Details
+                </section>
+                <section class="bottom-bar">
+                    <input type="number" name="quantity" id="quantity">
+                    <span class="grow">$0.00</span>
+                    <input type="button" value="Update">
+                </section>
+            </section>
+        </main>
+    </section>
+</body>
+</html>
