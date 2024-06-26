@@ -46,13 +46,25 @@ h2 {
     width: 100%;
 }
 
+.logout-form {
+    border-right: 1px solid black;
+    padding-right: 10px;
+}
+
+.logout-form input[type="submit"] {
+    display: block;
+    height: 100%;
+}
+
 .top-bar, .bottom-bar {
     box-sizing: border-box;
     padding: 10px;
     display: flex;
     gap: 10px;
-    font-size: 20px;
+    font-size: 25px;
     justify-content: center;
+    align-items: stretch;
+    height: 50px;
 }
 
 .grow {

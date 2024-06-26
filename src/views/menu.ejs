@@ -3,6 +3,7 @@
 <head>
     <%- include("partials/head.ejs") %>
     <script type="module" src="/scripts/menu.mjs" defer></script>
+    <script type="module" src="/scripts/order.mjs" defer></script>
     <title>Menu</title>
 </head>
 <body>
@@ -11,7 +12,6 @@
             <section class="split-view-side">
                 <section class="top-bar">
                     <%- include("partials/logout.ejs") %>
-                    <span>|</span>
                     <input 
                         class="grow"
                         type="text" 
@@ -30,7 +30,11 @@
                     Loading...
                 </section>
                 <section class="bottom-bar">
-                    Order
+                    <input 
+                        type="button" 
+                        value="Send order to kitchen - $0.00" 
+                        id="order-send"
+                    >
                 </section>
             </section>
             <section class="split-view-side">
@@ -38,9 +42,14 @@
                     <h2>Select a product on the right to get started!</h2>
                 </section>
                 <section class="bottom-bar">
-                    <input type="number" name="quantity" id="quantity">
-                    <span class="grow">$0.00</span>
-                    <input type="button" value="Update">
+                    <input 
+                        type="number" 
+                        name="quantity" 
+                        id="order-product-quantity" 
+                        value="0" min="0"
+                    >
+                    <span class="grow" id="order-product-total">$0.00</span>
+                    <input type="button" value="Update" id="order-product-update">
                 </section>
             </section>
         </main>
