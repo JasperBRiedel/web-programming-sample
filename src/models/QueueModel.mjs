@@ -1,10 +1,10 @@
-import { Model } from "./model.mjs";
+import { DataModel } from "./DataModel.mjs";
 
 export const QUEUE_STATUS_WAITING = "waiting";
 export const QUEUE_STATUS_COOKING = "cooking";
 export const QUEUE_STATUS_READY = "ready";
 
-export class Queue extends Model {
+export class QueueModel extends DataModel {
     billNumber;
     productName;
     quantity;

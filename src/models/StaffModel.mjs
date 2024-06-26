@@ -1,9 +1,9 @@
-import { Model } from "./model.mjs";
+import { DataModel } from "./DataModel.mjs";
 
 export const STAFF_ROLE_KITCHEN = "kitchen"
 export const STAFF_ROLE_WAIT = "wait"
 
-export class Staff extends Model {
+export class StaffModel extends DataModel {
 
     name; // key - must be unique
     role;
@@ -17,7 +17,7 @@ export class Staff extends Model {
     }
 }
 
-Staff.data = [
-    new Staff("John", STAFF_ROLE_WAIT, "abc123"),
-    new Staff("Jane", STAFF_ROLE_KITCHEN, "abc123")
+StaffModel.data = [
+    new StaffModel("John", STAFF_ROLE_WAIT, "abc123"),
+    new StaffModel("Jane", STAFF_ROLE_KITCHEN, "abc123")
 ]

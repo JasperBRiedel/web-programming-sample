@@ -1,7 +1,7 @@
-import { STAFF_ROLE_KITCHEN, STAFF_ROLE_WAIT, Staff } from "../models/staff.mjs";
+import { STAFF_ROLE_KITCHEN, STAFF_ROLE_WAIT, StaffModel } from "../models/StaffModel.mjs";
 
-export class AuthenticationController {
-    static viewLogin(req, res) {
+export class AuthController {
+    static viewLoginPage(req, res) {
         res.render("login.ejs");
     }
     
@@ -23,7 +23,7 @@ export class AuthenticationController {
         } else if (formData.loginType == "staff") {
             // TODO: Validate and sanitise inputs
 
-            const queryResult = Staff.select(staff => staff.name == formData.staffName && staff.password == formData.staffPassword);
+            const queryResult = StaffModel.select(staff => staff.name == formData.staffName && staff.password == formData.staffPassword);
             
             if (queryResult.length > 0) {
                 const matchingStaffMember = queryResult[0];

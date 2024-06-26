@@ -1,10 +1,10 @@
 import express from "express"
-import { MenuController } from "../controllers/menu.mjs"
+import { MenuController } from "../controllers/MenuController.mjs"
 
 const menuRoutes = express.Router()
 
-menuRoutes.get("/", MenuController.viewMenu)
-menuRoutes.get("/items", MenuController.getMenuItems)
-menuRoutes.get("/items/:name", MenuController.getMenuItem)
+menuRoutes.get("/", MenuController.viewMenuPage)
+menuRoutes.get("/products", MenuController.getProductsJSON)
+menuRoutes.get("/products/:name", MenuController.viewProductPartial)
 
 export default menuRoutes

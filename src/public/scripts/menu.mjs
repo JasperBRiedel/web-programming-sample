@@ -1,50 +1,44 @@
 export class MenuController {
     static searchTerm = "";
     static sortOption = "highest rating";
-    static menuItems = [];
+    static products = [];
     
     static {
-        fetch("/menu/items")
+        fetch("/menu/products")
             .then(response => response.json())
-            .then(receivedMenuItems => {
-                this.menuItems = receivedMenuItems;
-                this.renderResults();
+            .then(receivedProducts => {
+                this.products = receivedProducts;
+                this.renderProductList();
             })
         
-        document.getElementById("menu-item-search")
+        document.getElementById("menu-product-search")
             .addEventListener("input", (event) => {
                 this.searchTerm = event.target.value;
-                this.renderResults();
+                this.renderProductList();
             })
 
-        document.getElementById("menu-item-sort")
+        document.getElementById("menu-product-sort")
             .addEventListener("input", (event) => {
                 this.sortOption = event.target.value;
-                this.renderResults();
+                this.renderProductList();
             })
     }
     
-    static onViewItem(itemName) {
-        console.log("View " + itemName)
-        this.renderItem(itemName)
-    }
-    
-    static renderItem(itemName) {
-        fetch("/menu/items/" + itemName)
+    static renderProductDetails(productName) {
+        fetch("/menu/products/" + productName)
             .then(response => response.text())
-            .then(itemPage => {
+            .then(productPartial => {
                 document.getElementById("product-details")
-                    .innerHTML = itemPage
+                    .innerHTML = productPartial
             })
     }
     
-    static renderResults() {
-        // Filter and sort results
-        let resultingMenuItems = this.menuItems
-            .filter(item => 
+    static renderProductList() {
+        let filteredAndSortedProducts = this.products
+            .filter(product => 
                 this.searchTerm === ""
-                || item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) 
-                || item.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+                || product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) 
+                || product.description.toLowerCase().includes(this.searchTerm.toLowerCase())
             )
             .sort((a, b) => {
                 if (this.sortOption == "highest rating") {
@@ -59,24 +53,24 @@ export class MenuController {
             })
         
         // Fill HTML template and show on page
-        const menuItemList = document.getElementById("menu-item-list");
-        menuItemList.innerHTML = resultingMenuItems.map(item => `
+        const menuItemList = document.getElementById("menu-product-list");
+        menuItemList.innerHTML = filteredAndSortedProducts.map(product => `
             <article class="card">
-                <span>${item.icon}</span>
-                <span>${item.name}</span>
-                <span>$ ${item.price}</span>
+                <span>${product.icon}</span>
+                <span>${product.name}</span>
+                <span>$ ${product.price}</span>
                 <meter 
                     min="0" 
                     max="10" 
                     low="4"
                     high="8"
                     optimum="9"
-                    value="${item.rating * 10}">
+                    value="${product.rating * 10}">
                 </meter>
                 <input 
                     type="button" 
                     value="view" 
-                    onclick="onViewItem('${item.name}')" 
+                    onclick="renderProductDetails('${product.name}')" 
                 >
             </article>
         `).join("");
@@ -84,4 +78,4 @@ export class MenuController {
 }
 
 // This is a little hack to allow calling onViewItem from the onclick attribute.
-window.onViewItem = (name) => MenuController.onViewItem(name);
+window.renderProductDetails = (name) => MenuController.renderProductDetails(name);

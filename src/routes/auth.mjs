@@ -1,10 +1,10 @@
 import express from "express"
-import { AuthenticationController } from "../controllers/auth.mjs"
+import { AuthController } from "../controllers/AuthController.mjs"
 
 const authenticationRoutes = express.Router()
 
-authenticationRoutes.get("/login", AuthenticationController.viewLogin)
-authenticationRoutes.post("/login", AuthenticationController.loginUser)
-authenticationRoutes.post("/logout", AuthenticationController.logoutUser)
+authenticationRoutes.get("/login", AuthController.viewLoginPage)
+authenticationRoutes.post("/login", AuthController.loginUser)
+authenticationRoutes.post("/logout", AuthController.logoutUser)
 
 export default authenticationRoutes

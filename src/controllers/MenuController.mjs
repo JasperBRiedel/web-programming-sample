@@ -1,19 +1,19 @@
-import { Product } from "../models/product.mjs"
+import { ProductModel } from "../models/ProductModel.mjs"
 
 export class MenuController {
-    static viewMenu(req, res) {
+    static viewMenuPage(req, res) {
         res.render("menu.ejs")       
     }
     
-    static getMenuItems(req, res) {
-        const menuItems = Product.select();
+    static getProductsJSON(req, res) {
+        const menuItems = ProductModel.select();
         res.status(200).json(menuItems)
     }
     
-    static getMenuItem(req, res) {
+    static viewProductPartial(req, res) {
         const itemName = req.params.name
         
-        const queryResult = Product.select(product => product.name == itemName)
+        const queryResult = ProductModel.select(product => product.name == itemName)
         
         if (queryResult.length > 0) {
             const item = queryResult[0]
