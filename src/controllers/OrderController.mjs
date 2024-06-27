@@ -78,9 +78,6 @@ export class OrderController {
     static finaliseOrder(tableNumber, billNumber) {
         const filter = bill => 
             bill.tableNumber == tableNumber && bill.billNumber == billNumber
-        
-        console.log(tableNumber + " " + billNumber);
-        console.log(BillModel.data);
 
         const results = BillModel.select(filter);
         

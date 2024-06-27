@@ -40,9 +40,9 @@ export class AuthController {
                 }
                 
                 if (matchingStaffMember.role == STAFF_ROLE_KITCHEN) {
-                    res.redirect("/kitchen");
+                    res.redirect("/order/kitchen");
                 } else if (matchingStaffMember.role == STAFF_ROLE_WAIT) {
-                    res.redirect("/wait");
+                    res.redirect("/order/billing");
                 } else {
                     res.render("status.ejs", {message: "Invalid staff role."});
                 }
@@ -68,4 +68,14 @@ export class AuthController {
         req.session.destroy();
         res.redirect("/");
     }
+    
+    static hasSession(req, res, next) {
+        if (req.session.customer || req.session.staff) {
+            next();
+        } else {
+            res.status(400).render("status.ejs", {message: "Invalid session - please login."});
+        }
+    }
+    
+    // TODO: Restrict based on role
 }
