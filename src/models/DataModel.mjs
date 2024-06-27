@@ -2,7 +2,11 @@ export class DataModel {
     /**
      * In memory data store of model entries
      */
-    static data = [];
+    static data = null;
+    
+    static setDataSource(data) {
+        this.data = data;
+    }
     
     /**
      * Find and return matching entries based in the filter predicate provided.
@@ -11,6 +15,10 @@ export class DataModel {
      * @returns {Array<T>} matching entries.
      */
     static select(filter) {
+        if (!this.data) {
+            throw new Error("Data source not initialised.");
+        }
+
         if (typeof filter === "function") {
             return this.data.filter(filter)
         } else {
@@ -26,6 +34,10 @@ export class DataModel {
      * @returns the number of deleted entries
      */
     static update(filter, entry) {
+        if (!this.data) {
+            throw new Error("Data source not initialised.");
+        }
+
         if (typeof filter !== "function") {
             throw new Error("Filter must be a predicate function.");
         }
@@ -46,6 +58,10 @@ export class DataModel {
      * @returns 
      */
     static insert(entry) {
+        if (!this.data) {
+            throw new Error("Data source not initialised.");
+        }
+
         this.data.push(entry.clone());
     }
 
@@ -56,6 +72,10 @@ export class DataModel {
      * @returns the number of deleted entries
      */
     static delete(filter) {
+        if (!this.data) {
+            throw new Error("Data source not initialised.");
+        }
+
         if (typeof filter !== "function") {
             throw new Error("Filter must be a predicate function.");
         }

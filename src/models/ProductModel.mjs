@@ -18,7 +18,7 @@ export class ProductModel extends DataModel {
 }
 
 // Load static sample data. In the future we will use a database instead.
-ProductModel.data = [
+ProductModel.setDataSource([
     new ProductModel("Sushi", 
         "Sushi is a Japanese dish of prepared vinegared rice, usually with some sugar and salt, plus a variety of ingredients, such as vegetables, and any meat, but most commonly seafood.",
     10, 8/10, "🍣"),
@@ -37,4 +37,4 @@ ProductModel.data = [
     new ProductModel("Forbidden Snack", 
         "Not for human consumption!",
     100, 2.5/10, "🍄")
-]
+])

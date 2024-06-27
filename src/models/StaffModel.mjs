@@ -17,7 +17,7 @@ export class StaffModel extends DataModel {
     }
 }
 
-StaffModel.data = [
+StaffModel.setDataSource([
     new StaffModel("John", STAFF_ROLE_WAIT, "abc123"),
     new StaffModel("Jane", STAFF_ROLE_KITCHEN, "abc123")
-]
+]);

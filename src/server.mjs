@@ -3,6 +3,7 @@ import express from "express"
 import session from "express-session";
 import authenticationRoutes from "./routes/auth.mjs";
 import menuRoutes from "./routes/menu.mjs";
+import orderRoutes from "./routes/order.mjs";
 
 //// Setup an new express application ////
 
@@ -38,9 +39,15 @@ app.use(
     })
 )
 
+// Enable support for JSON request bodies. This allows
+// us to access JSON data as an object in the request body
+// object.
+app.use(express.json())
+
 //// Setup the routes to be used by express ////
-app.use("/auth", authenticationRoutes)
-app.use("/menu", menuRoutes)
+app.use("/auth", authenticationRoutes);
+app.use("/menu", menuRoutes);
+app.use("/order", orderRoutes);
 
 // Redirect request for root to the login page
 app.get("/", (_, res) => {

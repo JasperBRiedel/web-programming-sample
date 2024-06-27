@@ -1,4 +1,6 @@
+import { BILL_STATUS_OPEN, BillModel } from "../models/BillModel.mjs";
 import { STAFF_ROLE_KITCHEN, STAFF_ROLE_WAIT, StaffModel } from "../models/StaffModel.mjs";
+import { OrderController } from "./OrderController.mjs";
 
 export class AuthController {
     static viewLoginPage(req, res) {
@@ -15,6 +17,10 @@ export class AuthController {
             // is dangerous as if two customers logged in at the same millisecond
             // they would BOTH have the same bill. We will learn how to fix this
             // in the future.
+            const bill = new BillModel(Date.now(), formData.tableNumber, BILL_STATUS_OPEN);
+            BillModel.insert(bill);
+
+            // Save the bill and table numbers in the session for later.
             req.session.customer = {
                 tableNumber: formData.tableNumber,
                 billNumber: Date.now(),
@@ -49,6 +55,16 @@ export class AuthController {
     }
     
     static logoutUser(req, res) {
+        // If it is a customer logging out, we must let the
+        // order controller know so that the bill can be finalised
+        // and sent to the wait staff so the customer can pay.
+        if (req.session.customer) {
+            OrderController.finaliseOrder(
+                req.session.customer.tableNumber, 
+                req.session.customer.billNumber
+            );
+        }
+
         req.session.destroy();
         res.redirect("/");
     }

@@ -103,6 +103,17 @@ h2 {
     height: 40px;
 }
 
+.grid-table {
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+}
+
+.grid-table.cols-5 {
+    grid-template-columns: repeat(5, 1fr);
+}
+
 .split-view {
     display: grid;
     grid-template-columns: 1fr 1fr;

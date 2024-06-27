@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <script type="module" src="/scripts/kitchen.mjs" defer></script>
+    <title>Menu</title>
+</head>
+<body>
+    <section>
+        <main class="split-view">
+            <section class="split-view-side">
+                <section class="top-bar">
+                    <%- include("partials/logout.ejs") %>
+                    <span class="grow"></span>
+                </section>
+                <section class="grid-table cols-5" id="kitchen-queue">
+                    Loading queue...
+                </section>
+            </section>
+            <section class="split-view-side">
+                <section class="grow product-details" id="product-details">
+                </section>
+            </section>
+        </main>
+    </section>
+</body>
+</html>

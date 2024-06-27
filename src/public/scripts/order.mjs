@@ -78,17 +78,27 @@ export class OrderController {
         document.getElementById("order-send")
             .addEventListener("click", (event) => {
                 this.sendOrder();
-                
-                // Rerender the details to the screen (since we cleared the
-                // order they could now be out of sync).
-                this.renderProductDetailsForOrder();
-                this.renderOrderDetails();
             })
     }
     
     static sendOrder() {
-        console.log(OrderModel.getAllProductsWithQuantities());
-        OrderModel.clear();
+        const order = OrderModel.getAllProductsWithQuantities();
+        fetch("/order", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(order)
+        }).then(response => {
+            if (response.status == 200) {
+                OrderModel.clear();
+                this.renderProductDetailsForOrder();
+                this.renderOrderDetails();
+            } else {
+                alert("Error submitting order - status: " + response.status);
+            }
+        })
+
     }
 
     static updateSelectedProductQuantity(quantity) {
