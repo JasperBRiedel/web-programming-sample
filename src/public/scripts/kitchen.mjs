@@ -2,6 +2,12 @@ export class KitchenController {
     
     static {
         this.renderQueueList();
+        
+        // Set up click event on refresh button
+        document.getElementById("kitchen-queue-refresh")
+            .addEventListener("click", (event) => {
+                this.renderQueueList();
+            })
     }
     
     static renderProductDetails(productName) {
@@ -59,6 +65,7 @@ export class KitchenController {
                                 type="button" 
                                 value="next" 
                                 onclick="progressQueueStatus(${queueItem.queueNumber}, '${queueItem.status}')" 
+                                ${queueItem.status == "served" ? "disabled" : ""}
                             >
                             <input 
                                 type="button"

@@ -11,7 +11,12 @@
             <section class="split-view-side">
                 <section class="top-bar">
                     <%- include("partials/logout.ejs") %>
-                    <span class="grow"></span>
+                    <input 
+                        class="grow"
+                        type="button" 
+                        value="Refresh" 
+                        id="kitchen-queue-refresh" 
+                    >
                 </section>
                 <section class="grid-table cols-5" id="kitchen-queue">
                     Loading queue...
