@@ -3,7 +3,8 @@ import express from "express"
 import session from "express-session";
 import authenticationRoutes from "./routes/auth.mjs";
 import menuRoutes from "./routes/menu.mjs";
-import orderRoutes from "./routes/order.mjs";
+import kitchenRoutes from "./routes/kitchen.mjs";
+import billingRoutes from "./routes/billing.mjs";
 
 //// Setup an new express application ////
 
@@ -47,7 +48,8 @@ app.use(express.json())
 //// Setup the routes to be used by express ////
 app.use("/auth", authenticationRoutes);
 app.use("/menu", menuRoutes);
-app.use("/order", orderRoutes);
+app.use("/kitchen", kitchenRoutes);
+app.use("/billing", billingRoutes);
 
 // Redirect request for root to the login page
 app.get("/", (_, res) => {

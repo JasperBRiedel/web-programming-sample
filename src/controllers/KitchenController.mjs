@@ -1,7 +1,7 @@
 import { BILL_STATUS_UNPAID, BillModel } from "../models/BillModel.mjs";
 import { QUEUE_STATUS_COOKING, QUEUE_STATUS_PENDING, QUEUE_STATUS_READY, QUEUE_STATUS_SERVED, QueueModel } from "../models/QueueModel.mjs";
 
-export class OrderController {
+export class KitchenController {
     static viewKitchenPage(req, res) {
         res.render("kitchen.ejs");
     }
@@ -11,7 +11,7 @@ export class OrderController {
         res.json(queueItems);
     }
     
-    static setNextQueueItemStatus(req, res) {
+    static progressItemStatus(req, res) {
         const queueNumber = req.params.queueNumber;
         const currentStatus = req.body.status;
         
@@ -52,7 +52,7 @@ export class OrderController {
         res.json(bills);
     }
 
-    static addToOrder(req, res) {
+    static addToQueue(req, res) {
         
         // TODO: Check session
         const { tableNumber, billNumber } = req.session.customer;
@@ -73,18 +73,5 @@ export class OrderController {
         }
         
         res.status(200).send();
-    }
-    
-    static finaliseOrder(tableNumber, billNumber) {
-        const filter = bill => 
-            bill.tableNumber == tableNumber && bill.billNumber == billNumber
-
-        const results = BillModel.select(filter);
-        
-        if (results.length > 0) {
-            const bill = results[0];
-            bill.status = BILL_STATUS_UNPAID;
-            BillModel.update(filter, bill);
-        }
     }
 }

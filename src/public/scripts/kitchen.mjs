@@ -23,7 +23,7 @@ export class KitchenController {
     
     static progressQueueStatus(queueNumber, status) {
         // Ask the server to progress the queue item to the next status.
-        fetch("/order/kitchen/queue/"+queueNumber, {
+        fetch("/kitchen/queue/"+queueNumber, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -41,7 +41,7 @@ export class KitchenController {
     
     static renderQueueList() {
         // Load latest queue from the backend
-        fetch("/order/kitchen/queue")
+        fetch("/kitchen/queue")
             .then(response => response.json())
             .then(kitchenQueue => {
 

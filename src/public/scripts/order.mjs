@@ -83,7 +83,7 @@ export class OrderController {
     
     static sendOrder() {
         const order = OrderModel.getAllProductsWithQuantities();
-        fetch("/order", {
+        fetch("/kitchen/queue/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -1,6 +1,6 @@
 import { BILL_STATUS_OPEN, BillModel } from "../models/BillModel.mjs";
 import { STAFF_ROLE_KITCHEN, STAFF_ROLE_MANAGER, STAFF_ROLE_WAIT, StaffModel } from "../models/StaffModel.mjs";
-import { OrderController } from "./OrderController.mjs";
+import { KitchenController } from "./KitchenController.mjs";
 
 export class AuthController {
     static viewLoginPage(req, res) {
@@ -40,9 +40,9 @@ export class AuthController {
                 }
 
                 if (matchingStaffMember.role == STAFF_ROLE_KITCHEN) {
-                    res.redirect("/order/kitchen");
+                    res.redirect("/kitchen");
                 } else if (matchingStaffMember.role == STAFF_ROLE_WAIT) {
-                    res.redirect("/order/billing");
+                    res.redirect("/billing");
                 } else if (matchingStaffMember.role == STAFF_ROLE_MANAGER) {
                     res.redirect("/staff");
                 } else {
@@ -61,7 +61,7 @@ export class AuthController {
         // order controller know so that the bill can be finalised
         // and sent to the wait staff so the customer can pay.
         if (req.session.customer) {
-            OrderController.finaliseOrder(
+            KitchenController.finaliseOrder(
                 req.session.customer.tableNumber,
                 req.session.customer.billNumber
             );
