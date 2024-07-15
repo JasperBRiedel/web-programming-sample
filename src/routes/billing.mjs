@@ -22,4 +22,11 @@ billingRoutes.get(
     BillingController.getBillDetailsPartial    
 )
 
+billingRoutes.patch(
+    "/bills/:billNumber", 
+    AuthController.restrictToStaff([STAFF_ROLE_WAIT, STAFF_ROLE_MANAGER]), 
+    BillingController.updateBillStatus
+);
+
+
 export default billingRoutes

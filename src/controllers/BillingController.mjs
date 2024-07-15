@@ -26,6 +26,27 @@ export class BillingController {
         res.json(bills);
     }
     
+    static updateBillStatus(req, res) {
+        const billNumber = req.params.billNumber
+        const updatedStatus = req.body.status
+
+        // TODO: Validate status
+        
+        const results = BillModel.select(bill => bill.billNumber == billNumber)
+
+        if (results.length > 0) {
+            const bill = results[0]
+            
+            bill.status = updatedStatus
+            
+            BillModel.update(bill => bill.billNumber == billNumber, bill)
+            
+            res.status(200).send("Status updated")
+        } else {
+            res.status(404).send("Bill not found")
+        }
+    }
+    
     static getBillDetailsPartial(req, res) {
         const billNumber = req.params.billNumber
 
