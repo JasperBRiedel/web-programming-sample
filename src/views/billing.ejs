@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%- include("partials/head.ejs") %>
-    <script type="module" src="/scripts/kitchen.mjs" defer></script>
+    <script type="module" src="/scripts/billing.mjs" defer></script>
     <title>Menu</title>
 </head>
 <body>
@@ -13,17 +13,25 @@
                     <%- include("partials/logout.ejs") %>
                     <input 
                         class="grow"
-                        type="button" 
-                        value="Refresh" 
-                        id="kitchen-queue-refresh" 
+                        type="text" 
+                        name="search"
+                        id="billing-search" 
+                        placeholder="search tables and bills" 
                     >
+                    <label>
+                        Show all:
+                        <input 
+                            type="checkbox" 
+                            id="billing-show-all" 
+                        >
+                    </label>
                 </section>
-                <section class="grid-table cols-5" id="kitchen-queue">
-                    Loading queue...
+                <section class="card-list" id="bill-list">
+                    Loading bills...
                 </section>
             </section>
             <section class="split-view-side">
-                <section class="grow product-details" id="product-details">
+                <section class="grow bill-details" id="bill-details">
                 </section>
             </section>
         </main>

@@ -1,6 +1,6 @@
 import { BILL_STATUS_OPEN, BillModel } from "../models/BillModel.mjs";
 import { STAFF_ROLE_KITCHEN, STAFF_ROLE_MANAGER, STAFF_ROLE_WAIT, StaffModel } from "../models/StaffModel.mjs";
-import { KitchenController } from "./KitchenController.mjs";
+import { BillingController } from "./BillingController.mjs";
 
 export class AuthController {
     static viewLoginPage(req, res) {
@@ -61,7 +61,7 @@ export class AuthController {
         // order controller know so that the bill can be finalised
         // and sent to the wait staff so the customer can pay.
         if (req.session.customer) {
-            KitchenController.finaliseOrder(
+            BillingController.finaliseBill(
                 req.session.customer.tableNumber,
                 req.session.customer.billNumber
             );

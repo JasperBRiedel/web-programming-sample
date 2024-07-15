@@ -47,11 +47,6 @@ export class KitchenController {
         }
     }
     
-    static viewBillingPage(req, res) {
-        const bills = BillModel.select();
-        res.json(bills);
-    }
-
     static addToQueue(req, res) {
         
         // TODO: Check session
