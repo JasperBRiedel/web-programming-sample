@@ -1,0 +1,15 @@
+<h2>Table: <%= bill.tableNumber %></h2>
+<p>Bill No.: <%= bill.billNumber %></p>
+<p>Status: <%= bill.status %></p>
+
+<ul>
+    <% for (const orderLine of orderLines) { %>
+        <li>
+            <%= orderLine.quantity %>
+            x <%= orderLine.productName %>
+            - <%= orderLine.status %>
+        </li> 
+    <% } %>
+</ul>
+
+<p>Total: $<%= total %></p>

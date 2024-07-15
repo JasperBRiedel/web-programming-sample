@@ -15,6 +15,16 @@ export class ProductModel extends DataModel {
         this.rating = rating;
         this.icon = icon;
     }
+
+    static getProductPrice(productName) {
+        const result = this.select(product => product.name == productName)
+        
+        if (result.length > 0) {
+            return result[0].price
+        } else {
+            return 0
+        }
+    }
 }
 
 // Load static sample data. In the future we will use a database instead.

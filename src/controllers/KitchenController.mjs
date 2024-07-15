@@ -1,4 +1,3 @@
-import { BILL_STATUS_UNPAID, BillModel } from "../models/BillModel.mjs";
 import { QUEUE_STATUS_COOKING, QUEUE_STATUS_PENDING, QUEUE_STATUS_READY, QUEUE_STATUS_SERVED, QueueModel } from "../models/QueueModel.mjs";
 
 export class KitchenController {

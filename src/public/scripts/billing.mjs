@@ -47,4 +47,15 @@ export class BillingController {
                 `).join("")
             })
     }
+    
+    static renderBillDetails(billNumber) {
+        fetch("/billing/bills/" + billNumber)
+            .then(response => response.text())
+            .then(productPartial => {
+                document.getElementById("bill-details")
+                    .innerHTML = productPartial
+            })
+    }
 }
+
+window.renderBillDetails = (billNumber) => BillingController.renderBillDetails(billNumber)

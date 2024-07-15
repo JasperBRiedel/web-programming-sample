@@ -6,6 +6,6 @@ const menuRoutes = express.Router()
 
 menuRoutes.get("/", AuthController.hasSession, MenuController.viewMenuPage)
 menuRoutes.get("/products", MenuController.getProductsJSON)
-menuRoutes.get("/products/:name", MenuController.viewProductPartial)
+menuRoutes.get("/products/:name", MenuController.viewProductDetailsPartial)
 
 export default menuRoutes

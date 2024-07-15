@@ -17,4 +17,9 @@ billingRoutes.get(
     BillingController.getBillsJSON
 )
 
+billingRoutes.get(
+    "/bills/:billNumber", 
+    BillingController.getBillDetailsPartial    
+)
+
 export default billingRoutes
