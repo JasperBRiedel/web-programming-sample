@@ -5,6 +5,7 @@ import authenticationRoutes from "./routes/auth.mjs";
 import menuRoutes from "./routes/menu.mjs";
 import kitchenRoutes from "./routes/kitchen.mjs";
 import billingRoutes from "./routes/billing.mjs";
+import staffRoutes from "./routes/staff.mjs";
 
 //// Setup an new express application ////
 
@@ -50,6 +51,7 @@ app.use("/auth", authenticationRoutes);
 app.use("/menu", menuRoutes);
 app.use("/kitchen", kitchenRoutes);
 app.use("/billing", billingRoutes);
+app.use("/staff", staffRoutes)
 
 // Redirect request for root to the login page
 app.get("/", (_, res) => {

@@ -69,6 +69,14 @@ h2 {
     height: 50px;
 }
 
+.bar {
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: stretch;
+}
+
 .grow {
     flex-grow: 1;
 }
@@ -136,7 +144,7 @@ input[type="checkbox"] {
     border-right: 1px black solid;
 }
 
-.product-details, .bill-details {
+.product-details, .bill-details, .staff-details {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -146,4 +154,16 @@ input[type="checkbox"] {
 
 .product-details .icon {
     font-size: 100px;
+}
+
+.form-grid {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-grid > input, .form-grid > select {
+    height: 30px;
+    font-size: 20px;
 }

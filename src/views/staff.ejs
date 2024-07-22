@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <title>Staff Admin CRUD</title>
+</head>
+<body>
+    <section>
+        <main class="split-view">
+            <section class="split-view-side">
+                <section class="top-bar">
+                    <%- include("partials/logout.ejs") %>
+                    <form method="GET" class="bar grow">
+                        <input 
+                            class="grow"
+                            type="text" 
+                            name="search"
+                            id="staff-search" 
+                            placeholder="search staff" 
+                        >
+                        <input 
+                            type="submit" 
+                            value="search"
+                            id="staff-search-button" 
+                        >
+                    </form>
+                </section>
+                <section class="card-list">
+                    <% for (const staffMember of staff) { %>
+                    <section class="card">
+                        <span><%- staffMember.name %></span>
+                        <span><%- staffMember.role %></span>
+                        <a href="/staff/<%- staffMember.name %>">Edit</a>
+                    </section>
+                    <% } %>
+                </section>
+            </section>
+            <form class="split-view-side" method="POST" action="/staff">
+                <section class="grow staff-details">
+                    <h2>Edit staff:</h2>
+                    <section class="form-grid">
+                        <input 
+                            type="hidden" 
+                            name="selected_name" 
+                            id="selected-name"
+                            value="<%- selected ? selected.name : '' %>">
+
+                        <label for="staff-name">Name:</label>
+                        <input 
+                            type="text" 
+                            name="staff_name" 
+                            id="staff-name"
+                            value="<%- selected ? selected.name : '' %>">
+
+                        <label for="staff-role">Role:</label>
+                        <select name="staff_role" id="staff-role">
+                            <option 
+                                value="kitchen"
+                                <%- selected && selected.role == "kitchen" ? "selected" : "" %>
+                            >Kitchen</option>
+
+                            <option 
+                                value="wait"
+                                <%- selected && selected.role == "wait" ? "selected" : "" %>
+                            >Wait</option>
+
+                            <option 
+                                value="manager"
+                                <%- selected && selected.role == "manager" ? "selected" : "" %>
+                            >Manager</option>
+                        </select>
+
+                        <label for="staff-password">Password:</label>
+                        <input 
+                            type="password" 
+                            name="staff_password" 
+                            id="staff-password"
+                            value="<%- selected ? selected.password : '' %>">
+                            <!-- SECURITY ISSUE: We should never send plain text password
+                             to the client side. We will look at how handle this properly
+                             next semester. -->
+                    </section>
+                </section>
+                <section class="bottom-bar">
+                    <input class="grow" type="submit" name="action" value="clear">
+                    <% if (selected) { %>
+                    <input class="grow" type="submit" name="action" value="update">
+                    <% } else { %>
+                    <input class="grow" type="submit" name="action" value="create">
+                    <% } %>
+                    <input class="grow" type="submit" name="action" value="delete">
+                </section>
+            </form>
+        </main>
+    </section>
+</body>
+</html>
