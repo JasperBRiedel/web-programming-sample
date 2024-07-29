@@ -1,4 +1,4 @@
-import { StaffModel } from "../models/StaffModel.mjs"
+import { STAFF_ROLE_KITCHEN, STAFF_ROLE_MANAGER, STAFF_ROLE_WAIT, StaffModel } from "../models/StaffModel.mjs"
 
 export class StaffController {
     static viewCRUDPage(req, res) {
@@ -27,7 +27,39 @@ export class StaffController {
 
     static handleCRUDAction(req, res) {
         const formData = req.body
-        // TODO: Validate form data
+        // Validate form data
+        if (!/^(clear|update|create|delete)$/.test(formData["action"])) {
+            res.status(400).render("status.ejs", { message: "Invalid CRUD operation - must be clear, update, create, or delete." });
+            return;
+        }
+
+        if (!formData["selected_name"].length > 0) {
+            res.status(400).render("status.ejs", { message: "Missing selected staff name." });
+            return;
+        }
+
+        if (!/^[a-zA-Z0-9]+$/.test(formData["staff_name"])) {
+            res.status(400).render("status.ejs", { 
+                message: "Invalid staff name - Must be specified and can contain numbers and letters only." 
+            });
+            return;
+        }
+
+        if (![
+            STAFF_ROLE_KITCHEN,
+            STAFF_ROLE_MANAGER,
+            STAFF_ROLE_WAIT
+        ].includes(formData["staff_role"])) {
+            res.status(400).render("status.ejs", {
+                message: "Invalid staff role - Must be: kitchen, wait, or manager."
+            });
+            return;
+        }
+
+        if (!formData["staff_password"].length > 0) {
+            res.status(400).render("status.ejs", { message: "Invalid password - Password must be specified." });
+            return;
+        }
         
         // Extract action and selected name (selected name
         // will match the original name before any edits

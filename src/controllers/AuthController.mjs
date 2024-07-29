@@ -11,7 +11,11 @@ export class AuthController {
         const formData = req.body;
 
         if (formData.loginType == "customer") {
-            // TODO: Validate and sanitise inputs
+            // Validate inputs
+            if (!/^[0-9]+$/.test(formData.tableNumber)) {
+                res.status(400).render("status.ejs", { message: "Invalid table number - Table number must be only digits." });
+                return;
+            }
 
             // Below we initialise the billNumber to the current timestamp, this
             // is dangerous as if two customers logged in at the same millisecond
@@ -27,7 +31,18 @@ export class AuthController {
             }
             res.redirect("/menu")
         } else if (formData.loginType == "staff") {
-            // TODO: Validate and sanitise inputs
+            // Validate inputs
+            if (!/^[a-zA-Z0-9]+$/.test(formData.staffName)) {
+                res.status(400).render("status.ejs", { 
+                    message: "Invalid staff name - Must be specified and can contain numbers and letters only." 
+                });
+                return;
+            }
+
+            if (!formData.staffPassword.length > 0) {
+                res.status(400).render("status.ejs", { message: "Invalid password - Password must be specified." });
+                return;
+            }
 
             const queryResult = StaffModel.select(staff => staff.name == formData.staffName && staff.password == formData.staffPassword);
 

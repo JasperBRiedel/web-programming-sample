@@ -4,18 +4,30 @@ export class KitchenController {
     static viewKitchenPage(req, res) {
         res.render("kitchen.ejs");
     }
-    
+
     static getKitchenQueue(req, res) {
         const queueItems = QueueModel.select();
         res.json(queueItems);
     }
-    
+
     static progressItemStatus(req, res) {
         const queueNumber = req.params.queueNumber;
         const currentStatus = req.body.status;
-        
+
+        if (![
+            QUEUE_STATUS_COOKING,
+            QUEUE_STATUS_PENDING,
+            QUEUE_STATUS_READY,
+            QUEUE_STATUS_SERVED
+        ].includes(currentStatus)) {
+            res.status(400).render("status.ejs", {
+                message: "Invalid status - Must be: pending, cooking, ready, or served."
+            });
+            return;
+        }
+
         const results = QueueModel.select(item => item.queueNumber == queueNumber);
-        
+
         if (results.length == 1) {
             const queueItem = results[0];
             if (queueItem.status != currentStatus) {
@@ -45,18 +57,18 @@ export class KitchenController {
             return;
         }
     }
-    
+
     static addToQueue(req, res) {
-        
+
         // TODO: Check session
         const { tableNumber, billNumber } = req.session.customer;
-        
+
         // TODO: Validation of body
         const order = req.body
 
         for (const productWithQuantity of order) {
             const queueItem = new QueueModel(
-                billNumber, 
+                billNumber,
                 tableNumber,
                 productWithQuantity.name,
                 productWithQuantity.quantity,
@@ -65,7 +77,7 @@ export class KitchenController {
 
             QueueModel.insert(queueItem);
         }
-        
+
         res.status(200).send();
     }
 }

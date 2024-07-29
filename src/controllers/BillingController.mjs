@@ -1,4 +1,4 @@
-import { BILL_STATUS_UNPAID, BillModel } from "../models/BillModel.mjs";
+import { BILL_STATUS_OPEN, BILL_STATUS_PAID, BILL_STATUS_UNPAID, BillModel } from "../models/BillModel.mjs";
 import { ProductModel } from "../models/ProductModel.mjs";
 import { QUEUE_STATUS_SERVED, QueueModel } from "../models/QueueModel.mjs";
 
@@ -30,7 +30,18 @@ export class BillingController {
         const billNumber = req.params.billNumber
         const updatedStatus = req.body.status
 
-        // TODO: Validate status
+        // Validate status
+        if (![BILL_STATUS_OPEN, BILL_STATUS_UNPAID, BILL_STATUS_PAID].includes(updatedStatus)) {
+            res.status(400).render("status.ejs", { 
+                message: "Invalid bill status - Must be: open, unpaid, or paid." 
+            });
+            return;
+        }
+
+        if (!/^[0-9]+$/.test(billNumber)) {
+            res.status(400).render("status.ejs", { message: "Invalid bill number - Bill number must be numeric." });
+            return;
+        }
         
         const results = BillModel.select(bill => bill.billNumber == billNumber)
 

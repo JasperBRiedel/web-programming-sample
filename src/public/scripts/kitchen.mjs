@@ -44,6 +44,8 @@ export class KitchenController {
         fetch("/kitchen/queue")
             .then(response => response.json())
             .then(kitchenQueue => {
+                
+                // TODO: Sort queue items based on status.
 
                 // Fill HTML template and show on page
                 const kitchenQueueList = document.getElementById("kitchen-queue");
