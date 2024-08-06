@@ -33,10 +33,11 @@ export class StaffController {
             return;
         }
 
-        if (!formData["selected_name"].length > 0) {
-            res.status(400).render("status.ejs", { message: "Missing selected staff name." });
-            return;
-        }
+        // BUG: Prevents creating new staff members.
+        // if (!formData["selected_name"].length > 0) {
+        //     res.status(400).render("status.ejs", { message: "Missing selected staff name." });
+        //     return;
+        // }
 
         if (!/^[a-zA-Z0-9]+$/.test(formData["staff_name"])) {
             res.status(400).render("status.ejs", { 
