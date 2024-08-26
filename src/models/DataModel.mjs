@@ -20,9 +20,9 @@ export class DataModel {
         }
 
         if (typeof filter === "function") {
-            return this.data.filter(filter)
+            return this.data.filter(filter).map(e => e.clone())
         } else {
-            return this.data
+            return this.data.map(e => e.clone())
         }
     }
     
